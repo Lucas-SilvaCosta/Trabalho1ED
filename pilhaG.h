@@ -26,9 +26,9 @@ class ArrayStack {
     //! metodo limpa pilha
     void clear();
     //! metodo retorna tamanho
-    std::size_t size();
+    int size();
     //! metodo retorna capacidade maxima
-    std::size_t max_size();
+    int max_size();
     //! verifica se esta vazia
     bool empty();
     //! verifica se esta cheia
@@ -37,7 +37,7 @@ class ArrayStack {
  private:
     T* contents;
     int top_;
-    std::size_t max_size_;
+    int max_size_;
 
     static const auto DEFAULT_SIZE = 10u;
 };
@@ -49,7 +49,7 @@ class ArrayStack {
 
 template<typename T>
 structures::ArrayStack<T>::ArrayStack() {
-    ArrayStack(DEFAULT_SIZE)
+    ArrayStack(DEFAULT_SIZE);
 }
 
 template<typename T>
@@ -69,8 +69,8 @@ void structures::ArrayStack<T>::push(const T& data) {
     if (full()) {
         throw std::out_of_range("pilha cheia");
     } else {
-        top = top+1;
-        contents[top] = data;
+        top_ = top_+1;
+        contents[top_] = data;
     }
 }
 
@@ -80,35 +80,35 @@ T structures::ArrayStack<T>::pop() {
     if (empty()) {
         throw std::out_of_range("pilha vazia");
     } else {
-        temp = top;
-        top = top-1;
+        temp = top_;
+        top_ = top_-1;
     }
     return contents[temp];
 }
 
 template<typename T>
 T& structures::ArrayStack<T>::top() {
-  return contents[top];
+  return contents[top_];
 }
 
 template<typename T>
 void structures::ArrayStack<T>::clear() {
-    top = -1;
+    top_ = -1;
 }
 
 template<typename T>
-std::size_t structures::ArrayStack<T>::size() {
-    return top+1;
+int structures::ArrayStack<T>::size() {
+    return top_+1;
 }
 
 template<typename T>
-std::size_t structures::ArrayStack<T>::max_size() {
-    return max_size_
+int structures::ArrayStack<T>::max_size() {
+    return max_size_;
 }
 
 template<typename T>
 bool structures::ArrayStack<T>::empty() {
-    if((top+1) == 0){
+    if((top_+1) == 0){
       return true;
     }else{
       return false;
@@ -117,7 +117,7 @@ bool structures::ArrayStack<T>::empty() {
 
 template<typename T>
 bool structures::ArrayStack<T>::full() {
-  if((top+1) == max_size_){
+  if((top_+1) == max_size_){
     return true;
   }else{
     return false;
